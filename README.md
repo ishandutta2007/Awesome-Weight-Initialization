@@ -37,23 +37,23 @@ The technical framework governing model weight initialization has transitioned f
 
 Weight Initialization methodologies are strictly categorized based on the exact geometric boundaries and statistical distributions they use to map out parameter tensors.
 
-### A. Xavier / Glorot Initialization (Symmetric Scale)
-*   **Mechanism:** Draws weights from a Gaussian or Uniform distribution whose variance is bounded by the layer's horizontal dimension endpoints:
-    $$W \sim \mathcal{N}\left(0, \frac{2}{\text{fan}_{\text{in}} + \text{fan}_{\text{out}}}\right) \quad \text{or} \quad W \sim \mathcal{U}\left(-\sqrt{\frac{6}{\text{fan}_{\text{in}} + \text{fan}_{\text{out}}}}, \sqrt{\frac{6}{\text{fan}_{\text{in}} + \text{fan}_{\text{out}}}}\right)$$
-*   **Application:** The default optimization standard for linear layers, multi-layer perceptrons, and networks utilizing symmetric saturating activations.
+- ### A. Xavier / Glorot Initialization (Symmetric Scale)
+	*   **Mechanism:** Draws weights from a Gaussian or Uniform distribution whose variance is bounded by the layer's horizontal dimension endpoints:
+	    $$W \sim \mathcal{N}\left(0, \frac{2}{\text{fan}_{\text{in}} + \text{fan}_{\text{out}}}\right) \quad \text{or} \quad W \sim \mathcal{U}\left(-\sqrt{\frac{6}{\text{fan}_{\text{in}} + \text{fan}_{\text{out}}}}, \sqrt{\frac{6}{\text{fan}_{\text{in}} + \text{fan}_{\text{out}}}}\right)$$
+	*   **Application:** The default optimization standard for linear layers, multi-layer perceptrons, and networks utilizing symmetric saturating activations.
 
-### B. He / Kaiming Initialization (Asymmetric Scale)
-*   **Mechanism:** Tailored explicitly for non-symmetric, rectified activation curves (ReLU, LeakyReLU, GELU, SwiGLU). It scales the initialization range to counter the zero-masking behavior of rectifier gates:
-    $$W \sim \mathcal{N}\left(0, \frac{2}{\text{fan}_{\text{in}}}\right) \quad \text{or} \quad W \sim \mathcal{U}\left(-\sqrt{\frac{6}{\text{fan}_{\text{in}}}}, \sqrt{\frac{6}{\text{fan}_{\text{in}}}}\right)$$
+- ### B. He / Kaiming Initialization (Asymmetric Scale)
+	*   **Mechanism:** Tailored explicitly for non-symmetric, rectified activation curves (ReLU, LeakyReLU, GELU, SwiGLU). It scales the initialization range to counter the zero-masking behavior of rectifier gates:
+	    $$W \sim \mathcal{N}\left(0, \frac{2}{\text{fan}_{\text{in}}}\right) \quad \text{or} \quad W \sim \mathcal{U}\left(-\sqrt{\frac{6}{\text{fan}_{\text{in}}}}, \sqrt{\frac{6}{\text{fan}_{\text{in}}}}\right)$$
 
-### C. Orthogonal Weight Initialization
-*   **Mechanism:** Bypasses independent coordinate random sampling completely. It generates a random dense matrix and passes it through Singular Value Decomposition (SVD) or a QR decomposition to extract a strictly **Orthogonal Matrix** ($W^T W = I$).
-*   **Pros:** Preserves the exact length (Euclidean norm) of vector activations perfectly during early forward passes, completely eliminating vanishing/exploding loops across deep recurrent structures.
+- ### C. Orthogonal Weight Initialization
+	*   **Mechanism:** Bypasses independent coordinate random sampling completely. It generates a random dense matrix and passes it through Singular Value Decomposition (SVD) or a QR decomposition to extract a strictly **Orthogonal Matrix** ($W^T W = I$).
+	*   **Pros:** Preserves the exact length (Euclidean norm) of vector activations perfectly during early forward passes, completely eliminating vanishing/exploding loops across deep recurrent structures.
 
-### D. DeepNorm / Residual Scale Initializers
-*   **Mechanism:** The structural baseline underpining web-scale foundation transformers. It divides standard layer initialization boundaries by a scaling fraction bound to maximum model depth ($L$):
-    $$W_{\text{residual}} \leftarrow W_{\text{baseline}} \times \frac{1}{\sqrt{2L}}$$
-*   **Pros:** Stabilizes distributed data-parallel training runs, allowing models to launch safely at peak learning rate velocities without requiring extensive warmup phases [INDEX: 22].
+- ### D. DeepNorm / Residual Scale Initializers
+	*   **Mechanism:** The structural baseline underpining web-scale foundation transformers. It divides standard layer initialization boundaries by a scaling fraction bound to maximum model depth ($L$):
+	    $$W_{\text{residual}} \leftarrow W_{\text{baseline}} \times \frac{1}{\sqrt{2L}}$$
+	*   **Pros:** Stabilizes distributed data-parallel training runs, allowing models to launch safely at peak learning rate velocities without requiring extensive warmup phases [INDEX: 22].
 
 ---
 
