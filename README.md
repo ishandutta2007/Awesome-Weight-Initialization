@@ -13,7 +13,10 @@ The technical framework governing model weight initialization has transitioned f
 
 
 ```mermaid
-[Constant / Naive Random (Pre-2010)] ───> [Xavier / Glorot (2010)] ───> [He / Kaiming (2015)] ───> [Scaled Residual Tricks (Modern LLMs)](Symmetry Locking / Gradient Decay)       (Symmetric Linear Variant Caps)       (Asymmetric ReLU / GELU Scaling)     (Deep Scale-Invariant Initializers)
+flowchart LR
+    A["Constant / Naive Random (Pre-2010)<br>(Symmetry Locking / Gradient Decay)"] --> B["Xavier / Glorot (2010)<br>(Symmetric Linear Variant Caps)"]
+    B --> C["He / Kaiming (2015)<br>(Asymmetric ReLU / GELU Scaling)"]
+    C --> D["Scaled Residual Tricks (Modern LLMs)<br>(Deep Scale-Invariant Initializers)"]
 ```
 
 
@@ -63,7 +66,15 @@ To guarantee safe parameter propagation across distributed multi-node clusters, 
 
 
 ```mermaid
-The DeepNorm Residual Initialization Pipeline[Identify Total Layers L] ───> [Calculate Base He/Glorot Variance] ───> [Compute Depth Scale Factor: 1/√(2L)]│▼[Shard Parameters via FSDP] <── [Verify Array Normalization] <── [Apply Downscale Factor to Layer Weights]
+---
+title: The DeepNorm Residual Initialization Pipeline
+---
+flowchart TB
+    A["Identify Total Layers L"] --> B["Calculate Base He/Glorot Variance"]
+    B --> C["Compute Depth Scale Factor: 1/√(2L)"]
+    C --> D["Apply Downscale Factor to Layer Weights"]
+    D --> E["Verify Array Normalization"]
+    E --> F["Shard Parameters via FSDP"]
 ```
 
 
