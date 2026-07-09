@@ -142,3 +142,14 @@ Before updating this documentation repository framework, let me know how you wou
 * I can generate a **Markdown matrix table** tracking the explicit initialization constants, learning rates, and target layers utilized by leading foundation open-weight models [INDEX: 15, 22].
 * I can write a detailed technical explanation focusing on the **mathematical proof of variance conservation** ($E[X^2] = \text{Var}(X)$) inside an unobstructed linear layer pass under symmetric Glorot constraints.
 
+
+##  Star History
+<div align="center">
+<a href="https://www.star-history.com/?repos=ishandutta2007%2FAwesome-Weight-Initialization&type=date&legend=bottom-right">
+<picture>
+<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Weight-Initialization&type=date&theme=dark&legend=bottom-right" />
+<source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Weight-Initialization&type=date&legend=bottom-right" />
+<img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ishandutta2007/Awesome-Weight-Initialization&type=date&legend=bottom-right" />
+</picture>
+</a>
+</div>
